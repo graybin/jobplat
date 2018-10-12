@@ -42,11 +42,14 @@ export default {
                 type: this.type
             }
             info = JSON.stringify(info)
+            var that = this
             if(this.checkinput()){
                 axios({
                     method: 'get',
                     url: 'http://localhost:9093/user/register',
                     params:{info}
+                }).then(function(res){
+                    that.$router.push('/employerinfo')
                 })
             }else{
             }
