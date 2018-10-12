@@ -52,7 +52,7 @@ export default {
             }
         },
         checkinput(){
-            if(this.name != '' && this.password == this.repeatpass){
+            if(this.name != '' &&this.password!='' &&  this.password == this.repeatpass){
                 return true
             }else{
                 return false

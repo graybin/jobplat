@@ -36,4 +36,18 @@ Router.get('/register',function(req, res){
         }
     })
 })
+Router.get('/login', function(req, res){
+    var {name, password} = req.query.info
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    User.findOne({name,password},function(err, doc){
+        if(doc){
+            return res.json({code: 0, msg: '登录成功'})
+        }else{
+            return res.json({code: 1, msg: '登录有误'})
+        }
+    })
+
+})
 module.exports = Router
