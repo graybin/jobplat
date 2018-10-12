@@ -5,6 +5,10 @@ import Login from '@/components/login/'
 import Register from '@/components/register'
 import employerinfo from '@/components/info/employer'
 import employeeinfo from '@/components/info/employee'
+import list from '@/components/list'
+import newlist from '@/components/list/newlist'
+import personinfo from '@/components/list/personinfo'
+import joblist from '@/components/list/joblist'
 
 Vue.use(Router)
 
@@ -35,6 +39,21 @@ export default new Router({
       path: '/employeeinfo',
       name: 'employeeinfo',
       component: employeeinfo
+    },
+    {
+      path: '/list',
+      name: 'list',
+      component: list,
+      children: [{
+        path: '/joblist',
+        component: joblist
+      },{
+        path: '/newlist',
+        component: newlist
+      },{
+        path: '/personinfo',
+        component: personinfo
+      }]
     }
   ]
 })
