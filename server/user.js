@@ -13,6 +13,14 @@ const User = mongoose.model('user1',new mongoose.Schema({
     'company': {type: String},
     'money': {type: String}
 }))
+const Chat = mongoose.model('chat', new mongoose.Schema({
+    'chat_id': {type: String, require: true},
+    'from': {type: String, require: true},
+    'to': {type: String, require: true},
+    'read': {type: Boolean, require: true, default: false},
+    'content': {type: String, require: true, default:''},
+    'create_time': {type: Number, require: true, default: new Date().getTime()},
+}))
 mongoose.connect(DB_URL)
 mongoose.connection.on("connected",function(){
     console.log('mongo connect success')

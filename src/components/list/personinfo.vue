@@ -7,12 +7,13 @@
         </div>
         <div>
             <h3>我的简历</h3>
+            <card></card>
         </div>
         <x-button text='退出登录' type='primary'></x-button>
     </div>
 </template>
 <script>
-import {XButton} from 'vux'
+import {XButton,Card} from 'vux'
 export default {
     name: 'personinfo',
     data(){
@@ -21,7 +22,8 @@ export default {
         }
     },
     components: {
-        XButton
+        XButton,
+        Card
     }
 }
 </script>
