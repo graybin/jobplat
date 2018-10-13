@@ -26,36 +26,64 @@ mongoose.connection.on("connected",function(){
     console.log('mongo connect success')
 })
 Router.get('/register',function(req, res){
-    var {name, password, type} = req.query.info
+    var {name, password, type} = JSON.parse(req.query.info)
+    console.log(name,password,type)
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
     })
-    User.findOne({name},function(err, doc){
-        if(doc){
-            return res.json({code: 1, msg: '用户名重复'})
+    User.find({name},function(err, doc){
+        if(doc.length){
+            return res.json({code: 1, msg: '用户名重复', doc:doc})
         }else{
             User.create({name,password,type},function(err, doc){
                 if(err){
                     console.log(err)
                 }else{
-                    return res.json({code:0})
+                    return res.json({code:0, type:type})
                 }
             })
         }
     })
 })
 Router.get('/login', function(req, res){
+    var {name, password} = JSON.parse(req.query.info)
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    User.findOne({name,password},function(err, doc){
+        if(doc){
+            return res.json({code: 0, msg: '登录成功', doc:doc})
+        }else{
+            return res.json({code: 0, msg: '登录有误'})
+        }
+    })
+
+})
+Router.get('/eeinfo',function(req,res){
+    console.log(req)
+    var {name, job,des} = req.query
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    User.update({name},{$set:{job,des}},function(err, doc){
+        if(doc){
+            return res.json({code: 0, msg: '更新成功', doc:doc})
+        }else{
+            return res.json({code: 1, msg: '更新有误'})
+        }
+    })
+})
+Router.get('/erinfo',function(req,res){
     var {name, password} = req.query.info
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
     })
     User.findOne({name,password},function(err, doc){
         if(doc){
-            return res.json({code: 0, msg: '登录成功'})
+            return res.json({code: 0, msg: '登录成功', doc:doc})
         }else{
-            return res.json({code: 1, msg: '登录有误'})
+            return res.json({code: 0, msg: '登录有误'})
         }
     })
-
 })
 module.exports = Router
