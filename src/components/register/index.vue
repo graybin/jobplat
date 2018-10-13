@@ -57,7 +57,9 @@ export default {
                         that.tip = '用户名已存在，请修改'
                         that.tipshow = true
                     }else{
-                        that.$store.commit('setname',that.name)
+                        var store = that.$store
+                        store.commit('setname',that.name)
+                        store.commit('settype',that.type)
                         if(res.data.type == '招聘'){
                             that.$router.push('/employerinfo')
                         }else{

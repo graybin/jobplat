@@ -50,7 +50,13 @@ export default {
                     if(res.data.code == '1'){
                         that.tipshow = true
                     }else{
-                        that.$store.commit('setname',that.name)
+                        var doc = res.data.doc
+                        var type = doc.type
+                        var des = doc.des
+                        var store = that.$store
+                        store.commit('setname',that.name)
+                        store.commit('settype',type)
+                        store.commit('setdes', des)
                         that.$router.push('/list')
                     }
                 }).catch(function(err){console.log(err)})

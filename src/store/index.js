@@ -8,6 +8,7 @@ export default new Vuex.Store({
     name: '',
     des:'',
     img: '',
+    type: '',
   },
   mutations: {
     setname (state, name) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setimg(state, img){
         state.img = img
+    },
+    settype(state, type){
+      state.type = type
     }
   },
   actions: {

@@ -52,9 +52,10 @@ Router.get('/login', function(req, res){
     })
     User.findOne({name,password},function(err, doc){
         if(doc){
+            res.cookie('useid',doc._id,function(){})
             return res.json({code: 0, msg: '登录成功', doc:doc})
         }else{
-            return res.json({code: 0, msg: '登录有误'})
+            return res.json({code: 1, msg: '登录有误'})
         }
     })
 
@@ -74,15 +75,37 @@ Router.get('/eeinfo',function(req,res){
     })
 })
 Router.get('/erinfo',function(req,res){
-    var {name, password} = req.query.info
+    var {name, job, company, money, des} = req.query
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
     })
-    User.findOne({name,password},function(err, doc){
+    User.update({name},{$set:{job,des,company,money}},function(err, doc){
         if(doc){
-            return res.json({code: 0, msg: '登录成功', doc:doc})
+            return res.json({code: 0, msg: '更新成功', doc:doc})
         }else{
-            return res.json({code: 0, msg: '登录有误'})
+            return res.json({code: 0, msg: '更新有误'})
+        }
+    })
+})
+Router.get('/joblist',function(req,res){
+    var {name} = req.query
+    console.log(name)
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    User.findOne({name},function(err, doc){
+        if(doc){
+            if(doc.type == '招聘'){
+                 User.find({type:'求职'}, function(err, doc){
+                    return res.json(doc)
+                 })
+            }else{
+                User.find({type:'招聘'}, function(err, doc){
+                    return res.json(doc)
+                 })
+            }
+        }else{
+            return res.json({code: 0, msg: '查询', doc:doc})
         }
     })
 })

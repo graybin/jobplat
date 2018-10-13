@@ -44,6 +44,7 @@ export default new Router({
       path: '/list',
       name: 'list',
       component: list,
+      redirect: '/joblist',
       children: [{
         path: '/joblist',
         component: joblist

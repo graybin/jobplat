@@ -2,12 +2,16 @@
     <div>
         <div class="imgshow">
             <img src="../../../static/oldlady.jpg" >
-            <p>graybin</p>
-            <p>helloword</p>
+            <p></p>
+            <p>{{this.name}}</p>
         </div>
-        <div>
+        <div class="showinfo">
             <h3>我的简历</h3>
-            <card></card>
+            <card>
+                <div slot="content">
+                    {{this.des}}
+                </div>
+            </card>
         </div>
         <x-button text='退出登录' type='primary'></x-button>
     </div>
@@ -18,12 +22,20 @@ export default {
     name: 'personinfo',
     data(){
         return {
-
+            name: '',
+            des: '',
+            img: '',
         }
     },
     components: {
         XButton,
         Card
+    },
+    mounted(){
+        var store = this.$store.state
+        this.name = store.name
+        this.img = store.img
+        this.des = store.des
     }
 }
 </script>
@@ -34,6 +46,9 @@ export default {
 .imgshow img{
     width: 100px;
     height: 100px;
+}
+.showinfo{
+    padding: 0 0 20px 10px;
 }
 </style>
 
