@@ -16,6 +16,20 @@ export default {
     },
     components:{
         ftabbar
+    },
+    beforeMount(){
+        var name = this.$store.state.name
+        var type = this.$store.state.type
+        var info = window.sessionStorage.getItem('info')
+        if(!name || !type){
+            if(info ){
+                info = JSON.parse(info)
+                this.$store.commit('setname', info.name)
+                this.$store.commit('settype', info.type)
+            }else{
+                this.$router.push('/login')
+            }
+        }
     }
 }
 </script>

@@ -5,7 +5,7 @@
                 <img slot="icon" src="../../../static/boy.jpg">
                 <span slot="label">信息列表</span>
             </tabbar-item>
-            <tabbar-item show-dot @on-item-click='handleclick("/newlist")'>
+            <tabbar-item show-dot @on-item-click='handleclick("/news")'>
                 <img slot="icon" src="../../../static/boy.jpg">
                 <span slot="label">消息</span>
             </tabbar-item>
@@ -18,6 +18,7 @@
 </template>
 <script>
 import { Tabbar, TabbarItem } from 'vux'
+import axios from 'axios'
 export default {
     name: 'ftabbar',
     components:{
@@ -28,14 +29,18 @@ export default {
         handleclick(path){
             this.$router.push(path)
         }
-    }
+    },
     
 }
 </script>
 
 <style>
-.tab .tabbar{
+.tab{
+    width: 95%;
     position: fixed;
     bottom: 0;
+}
+.tab .tabbar{
+    
 }
 </style>

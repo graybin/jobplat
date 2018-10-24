@@ -13,7 +13,7 @@
                 </div>
             </card>
         </div>
-        <x-button text='退出登录' type='primary'></x-button>
+        <x-button text='退出登录' type='primary' @click.native="logout"></x-button>
     </div>
 </template>
 <script>
@@ -36,6 +36,13 @@ export default {
         this.name = store.name
         this.img = store.img
         this.des = store.des
+    },
+    methods: {
+        logout(){
+            this.$store.commit('setname','')
+            window.sessionStorage.removeItem('info')
+            this.$router.push('/login')
+        }
     }
 }
 </script>

@@ -1,20 +1,22 @@
 <template>
     <div class="cardlist">
-        <x-header :title='listheader' :left-options='{showBack:false}'></x-header>
-        <card  v-for="item in list" :key="item.name" class="carditem">
-            <div slot="header" class="itemheader">
-                <div class="itemleft">
-                    <img src="../../../static/oldlady.jpg" @click="tochat(item.name)">
-                    <div style="line-height: 50px;display:inline-block;float: left;">{{item.name}}</div>
+        <x-header :title='listheader' :left-options='{showBack:false}' style="position: fixed; width:100%; z-index:500;width:95%;"></x-header>
+        <div style="position: absolute;top: 60px; bottom: 100px; width:95%;overflow:scroll;">
+            <card  v-for="item in list" :key="item.name" class="carditem" >
+                <div slot="header" class="itemheader">
+                    <div class="itemleft">
+                        <img src="../../../static/oldlady.jpg" @click="tochat(item.name)">
+                        <div style="line-height: 50px;display:inline-block;float: left;">{{item.name}}</div>
+                    </div>
+                    <div class="itemright">岗位：{{item.job}}</div>
                 </div>
-                <div class="itemright">岗位：{{item.job}}</div>
-            </div>
-            <div class="infocontent" slot='content'>
-                <p v-if='type=="求职"'>公司：{{item.company}}</p>
-                <p>简介：{{item.des}}</p>
-                <p v-if='type=="求职"'>薪资：{{item.money}}</p>
-            </div>
-        </card>
+                <div class="infocontent" slot='content'>
+                    <p v-if='type=="求职"'>公司：{{item.company}}</p>
+                    <p>简介：{{item.des}}</p>
+                    <p v-if='type=="求职"'>薪资：{{item.money}}</p>
+                </div>
+            </card>
+        </div>
     </div>
 </template>
 <script>

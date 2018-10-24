@@ -9,6 +9,7 @@ import list from '@/components/list'
 import newlist from '@/components/list/newlist'
 import personinfo from '@/components/list/personinfo'
 import joblist from '@/components/list/joblist'
+import news from '@/components/list/news'
 
 Vue.use(Router)
 
@@ -54,6 +55,9 @@ export default new Router({
       },{
         path: '/personinfo',
         component: personinfo
+      },{
+        path: '/news',
+        component: news
       }]
     }
   ]

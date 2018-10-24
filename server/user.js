@@ -21,6 +21,11 @@ const Chat = mongoose.model('chat', new mongoose.Schema({
     'content': {type: String, require: true, default:''},
     'create_time': {type: Number, require: true, default: new Date().getTime()},
 }))
+const News = mongoose.model('news', new mongoose.Schema({
+    'name': {type: String, require: true},
+    'with': {type: String, require: true},
+    'create_time': {type: Number, require: true, default: new Date().getTime()},
+}))
 mongoose.connect(DB_URL)
 mongoose.connection.on("connected",function(){
     console.log('mongo connect success')
@@ -52,7 +57,7 @@ Router.get('/login', function(req, res){
     })
     User.findOne({name,password},function(err, doc){
         if(doc){
-            res.cookie('useid',doc._id,function(){})
+            res.cookie('useid',doc._id)
             return res.json({code: 0, msg: '登录成功', doc:doc})
         }else{
             return res.json({code: 1, msg: '登录有误'})
@@ -110,17 +115,17 @@ Router.get('/joblist',function(req,res){
     })
 })
 Router.get('/chat', function(req, res){
-    var {name} = req.query
+    var {name,chatwith} = req.query
     var news = []
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
     })
-    Chat.find({from:name},function(err, doc){
+    Chat.find({from:name,to:chatwith},function(err, doc){
         if(doc){
             news = doc
         }
     })
-    Chat.find({to:name},function(err, doc){
+    Chat.find({to:name,from:chatwith},function(err, doc){
         if(doc){
             news = news.concat(doc)
             news.sort(function(a,b){
@@ -136,11 +141,40 @@ Router.get('/send', function(req, res){
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
     })
+    News.findOne({name:from,with:to},function(err, doc){
+        if(!doc){
+            News.create({name:from,with:to,create_time:create_time},function(err,doc){
+            })
+        }else{
+            News.update({name:from,with:to},{$set:{create_time:create_time}},function(){})
+        }
+    })
     Chat.create({from,to,content,create_time},function(err, doc){
         if(err){
             console.log(err)
         }else{
             return res.json({code:0})
+        }
+    })
+})
+Router.get('/news', function(req, res){
+    var {name} = req.query
+    var news = []
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    News.find({name:name},function(err, doc){
+        if(doc){
+            news = doc
+        }
+    })
+    News.find({with:name},function(err, doc){
+        if(doc){
+            news = news.concat(doc)
+            news.sort(function(a,b){
+                return a.create_time - b.create_time 
+            })
+            return res.json(news)
         }
     })
 })

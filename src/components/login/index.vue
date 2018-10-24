@@ -54,10 +54,18 @@ export default {
                         var type = doc.type
                         var des = doc.des
                         var store = that.$store
+                        var obj = {
+                            name: that.name,
+                            type: type,
+                            des: des,
+                        }
+                        console.log(doc)
+                        obj = JSON.stringify(obj)
                         store.commit('setname',that.name)
                         store.commit('settype',type)
                         store.commit('setdes', des)
                         that.$router.push('/list')
+                        window.sessionStorage.setItem('info',obj)
                     }
                 }).catch(function(err){console.log(err)})
             }else{

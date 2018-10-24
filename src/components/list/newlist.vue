@@ -37,7 +37,7 @@ export default {
         axios({
             method: 'get',
             url: 'http://localhost:9093/user/chat',
-            params: {name}
+            params: {name,chatwith:that.chatwith}
         }).then(function(res){console.log(res.data); return res}).then(function(res){
             that.news = res.data
             that.news.forEach(function(item){
