@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <router-view></router-view>
+    <div >
+        <router-view style="padding-bottom:70px;"></router-view>
         <ftabbar></ftabbar>
     </div>
 </template>

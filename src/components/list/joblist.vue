@@ -1,9 +1,10 @@
 <template>
     <div class="cardlist">
+        <x-header :title='listheader' :left-options='{showBack:false}'></x-header>
         <card  v-for="item in list" :key="item.name" class="carditem">
             <div slot="header" class="itemheader">
                 <div class="itemleft">
-                    <img src="../../../static/oldlady.jpg">
+                    <img src="../../../static/oldlady.jpg" @click="tochat(item.name)">
                     <div style="line-height: 50px;display:inline-block;float: left;">{{item.name}}</div>
                 </div>
                 <div class="itemright">岗位：{{item.job}}</div>
@@ -17,19 +18,22 @@
     </div>
 </template>
 <script>
-import {Card} from 'vux'
+import {Card, XHeader} from 'vux'
 import axios from 'axios'
 export default {
     data(){
         return {
             list: [],
             type: '',
+            listheader: ''
         }
     },
     components: {
-        Card
+        Card,
+        XHeader
     },
     mounted(){
+        this.listheader = this.$store.state.type
         var name = this.$store.state.name
         var that = this
         this.type = this.$store.state.type 
@@ -43,6 +47,12 @@ export default {
             }
            
         })
+    },
+    methods:{
+        tochat(name){
+            this.$router.push('/newlist')
+            this.$store.commit('setchatwith', name)
+        }
     }
 }
 </script>

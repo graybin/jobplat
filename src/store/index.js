@@ -9,6 +9,7 @@ export default new Vuex.Store({
     des:'',
     img: '',
     type: '',
+    chatwith: ''
   },
   mutations: {
     setname (state, name) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     settype(state, type){
       state.type = type
+    },
+    setchatwith(state, name){
+      state.chatwith = name
     }
   },
   actions: {

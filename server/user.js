@@ -109,4 +109,39 @@ Router.get('/joblist',function(req,res){
         }
     })
 })
+Router.get('/chat', function(req, res){
+    var {name} = req.query
+    var news = []
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    Chat.find({from:name},function(err, doc){
+        if(doc){
+            news = doc
+        }
+    })
+    Chat.find({to:name},function(err, doc){
+        if(doc){
+            news = news.concat(doc)
+            news.sort(function(a,b){
+                return a.create_time - b.create_time 
+            })
+            return res.json(news)
+        }
+    })
+})
+Router.get('/send', function(req, res){
+    var {from,to,content,create_time} = req.query
+    create_time = + create_time
+    res.set({
+        'Access-Control-Allow-Origin': 'http://localhost:8080'
+    })
+    Chat.create({from,to,content,create_time},function(err, doc){
+        if(err){
+            console.log(err)
+        }else{
+            return res.json({code:0})
+        }
+    })
+})
 module.exports = Router
