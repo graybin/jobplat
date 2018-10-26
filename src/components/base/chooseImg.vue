@@ -37,10 +37,14 @@ export default {
             }
         },
         handleclick(item){
+            this.$store.commit('setimg',item)
             this.chooseimg = item
-            console.log(this.chooseimg)
-        }
+        },
     }
 }
 </script>
+<style>
+
+</style>
+
 

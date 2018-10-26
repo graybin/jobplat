@@ -40,10 +40,12 @@ export default {
     },
     methods: {
         doregister(){
+            var img = this.$store.state.img
             var info = {
                 name: this.name,
                 password: this.password,
-                type: this.type
+                type: this.type,
+                img: img,
             }
             info = JSON.stringify(info)
             var that = this

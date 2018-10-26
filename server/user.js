@@ -31,7 +31,7 @@ mongoose.connection.on("connected",function(){
     console.log('mongo connect success')
 })
 Router.get('/register',function(req, res){
-    var {name, password, type} = JSON.parse(req.query.info)
+    var {name, password, type, img} = JSON.parse(req.query.info)
     console.log(name,password,type)
     res.set({
         'Access-Control-Allow-Origin': 'http://localhost:8080'
@@ -40,7 +40,7 @@ Router.get('/register',function(req, res){
         if(doc.length){
             return res.json({code: 1, msg: '用户名重复', doc:doc})
         }else{
-            User.create({name,password,type},function(err, doc){
+            User.create({name,password,type,img},function(err, doc){
                 if(err){
                     console.log(err)
                 }else{
@@ -170,6 +170,13 @@ Router.get('/news', function(req, res){
     })
     News.find({with:name},function(err, doc){
         if(doc){
+            doc.forEach(function(item,index){
+                news.forEach(function(item1,index1){
+                    if(item.name == item1.with){
+                        item.create_time>item1.create_time?news.splice(index1,1):doc.splice(index,1)
+                    }
+                })
+            })
             news = news.concat(doc)
             news.sort(function(a,b){
                 return a.create_time - b.create_time 

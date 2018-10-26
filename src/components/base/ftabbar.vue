@@ -40,7 +40,17 @@ export default {
     position: fixed;
     bottom: 0;
 }
-.tab .tabbar{
-    
+.tab .tabbar {
+    height: 70px;
+}
+.tab .tabbar span{
+    font-size: 15px;
+}
+.tab .tabbar img{
+    width: 35px;
+    height: 25px;
+}
+.tab .tabbar a{
+    text-decoration: none;
 }
 </style>

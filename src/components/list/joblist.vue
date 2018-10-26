@@ -1,7 +1,7 @@
 <template>
     <div class="cardlist">
         <x-header :title='listheader' :left-options='{showBack:false}' style="position: fixed; width:100%; z-index:500;width:95%;"></x-header>
-        <div style="position: absolute;top: 60px; bottom: 100px; width:95%;overflow:scroll;">
+        <div style="position: absolute;top: 60px; bottom: 75px; width:95%;overflow:scroll;">
             <card  v-for="item in list" :key="item.name" class="carditem" >
                 <div slot="header" class="itemheader">
                     <div class="itemleft">

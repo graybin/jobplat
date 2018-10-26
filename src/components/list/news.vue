@@ -1,7 +1,7 @@
 <template>
     <div>
         <x-header title="消息列表" :left-options='{showBack:false}'></x-header>
-        <div v-for="(item ,index) in chathistory" :key="index" style="display:relative;paddding-left: 15px;border:1px solid #eee; margin-top: 15px;">
+        <div v-for="(item ,index) in chathistory" :key="index" @click="handleclick(item.with)" style="display:relative;paddding-left: 15px;border:1px solid #eee; margin-top: 15px;">
             <img src="../../../static/beauty.jpg" style="width:50px;height:50px;">
             <div style="display:inline-block;line-height:50px;position:absolute;padding-left: 15px;">{{ item.with }}</div>
         </div>
@@ -22,7 +22,10 @@ export default {
         XHeader,
     },
     methods: {
-
+        handleclick(item){
+            this.$store.commit('setchatwith',item)
+            this.$router.push('/newlist')
+        }
     },
     mounted(){
         var name = this.$store.state.name;
@@ -33,6 +36,11 @@ export default {
             params: {name}
         }).then(function(res){
             that.chathistory = res.data
+            that.chathistory.forEach(item=>{
+                if(item.with == name){
+                    item.with = item.name
+                }
+            })
         })
     }
 }
