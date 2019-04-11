@@ -10,6 +10,7 @@ import newlist from '@/components/list/newlist'
 import personinfo from '@/components/list/personinfo'
 import joblist from '@/components/list/joblist'
 import news from '@/components/list/news'
+import video from '@/components/list/video'
 
 Vue.use(Router)
 
@@ -58,6 +59,9 @@ export default new Router({
       },{
         path: '/news',
         component: news
+      },{
+        path: '/video',
+        component: video
       }]
     }
   ]

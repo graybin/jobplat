@@ -1,7 +1,7 @@
 <template>
     <div class="loginpa">
         <img src="../../../static/logo.jpg" width="100px" height="100px">
-        <h3>职位服务</h3>
+        <h3>基于WebRTC的视频通话系统</h3>
         <whitespace></whitespace>
         <x-input title='用户名' placeholder=' 请输入用户名' v-model="name"></x-input>
         <x-input type="password" title='密码 ' placeholder=' 请输入密码' v-model="password"></x-input>

@@ -1,13 +1,10 @@
 <template>
     <div class="registerpa">
         <img src="../../../static/logo.jpg" style="width:100px; height:100px;">
-        <h3>职位服务</h3>
+        <h3>基于WebRTC的视频通话系统</h3>
         <x-input title='用户名 ' placeholder=' 请输入用户名' v-model="name" @on-change='inputchange'></x-input>
         <x-input  title='密码  ' placeholder=' 请输入密码' v-model="password" type='password' @on-change='inputchange'></x-input>
         <x-input title='确认密码' placeholder=' 请输入密码' v-model="repeatpass" type='password' @on-change='inputchange'></x-input>
-        <group>
-            <radio title="选择身份" :options="options" v-model="type"></radio>
-        </group>
         <div class="tips" v-if="tipshow">{{this.tip}}</div>
         <whitespace></whitespace>
         <x-button disbaled='false' type='primary' text="注册" @click.native="doregister"></x-button>
@@ -62,11 +59,7 @@ export default {
                         var store = that.$store
                         store.commit('setname',that.name)
                         store.commit('settype',that.type)
-                        if(res.data.type == '招聘'){
-                            that.$router.push('/employerinfo')
-                        }else{
-                            that.$router.push('/employeeinfo')
-                        }             
+                        that.$router.push('/list')            
                     }          
                 })
             }else{

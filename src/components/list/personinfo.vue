@@ -6,7 +6,6 @@
             <p>{{this.name}}</p>
         </div>
         <div class="showinfo">
-            <h3>我的简历</h3>
             <card>
                 <div slot="content">
                     {{this.des}}
